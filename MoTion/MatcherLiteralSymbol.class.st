@@ -1,5 +1,5 @@
 Class {
 	#name : #MatcherLiteralSymbol,
-	#superclass : #MatcherLiteral,
+	#superclass : #MatcherLiteralString,
 	#category : #'MoTion-matcher'
 }

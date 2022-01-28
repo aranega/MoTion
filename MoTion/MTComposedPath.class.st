@@ -45,6 +45,10 @@ MTComposedPath >> resolveFrom: anObject [
 			result := [ each resolveFrom: intermediate ]
 				          on: Exception
 				          do: [ #(  ) ].
+			result := result flatCollect: [ :r | 
+				          (r isCollection and: [ r isString not ])
+					          ifTrue: [ r ]
+					          ifFalse: [ { r } ] ].
 			tmpObjects addAll: result ] ].
-	^ tmpObjects asArray
+	^ (tmpObjects reject: [ :m | m isNil ]) asArray
 ]

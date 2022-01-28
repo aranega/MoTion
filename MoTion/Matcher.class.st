@@ -1,11 +1,14 @@
 Class {
 	#name : #Matcher,
 	#superclass : #Object,
-	#instVars : [
-		'matchingContexts'
-	],
 	#category : #'MoTion-matcher'
 }
+
+{ #category : #matching }
+Matcher >> as: aSymbol [
+
+	^ MatcherSave of: self withAlias: aSymbol
+]
 
 { #category : #converting }
 Matcher >> asMatcher [
@@ -16,7 +19,7 @@ Matcher >> asMatcher [
 { #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.
-	matchingContexts := OrderedCollection new.
+	
 ]
 
 { #category : #matching }
@@ -35,10 +38,4 @@ Matcher >> match: aNewValue withContext: aMatchingContext [
 	
 	self shouldBeImplemented 
 	
-]
-
-{ #category : #matching }
-Matcher >> matchingContexts [
-
-	^ matchingContexts
 ]
