@@ -34,9 +34,9 @@ MatcherNAC >> innerMatcher: aMatcher [
 MatcherNAC >> match: aValue withContext: aContext [
 
 	| contexts |
+	
+	aContext flipIsMatch.
 	contexts := innerMatcher match: aValue withContext: aContext.
-	contexts := contexts collect: [ :ctx | 
-		            ctx isMatch: ctx isMatch not.
-		            ctx ].
+	contexts := contexts select:#isMatch.
 	^ contexts
 ]

@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'bindings',
-		'isMatch'
+		'isMatch',
+		'inverse'
 	],
 	#category : #'MoTion-results'
 }
@@ -30,9 +31,16 @@ MatchingContext >> copy [
 
 	| instance |
 	instance := self class new.
-	instance bindings addAll: self bindings.
-	instance isMatch: self isMatch.
+	instance bindings addAll: bindings.
+	instance isMatch: isMatch.
+	instance inverse: inverse.
 	^ instance
+]
+
+{ #category : #accessing }
+MatchingContext >> flipIsMatch [
+
+	inverse := inverse not
 ]
 
 { #category : #initialization }
@@ -40,12 +48,24 @@ MatchingContext >> initialize [
 	super initialize.
 	bindings := Dictionary new.
 	isMatch := false.
+	inverse := false.
+]
+
+{ #category : #accessing }
+MatchingContext >> inverse [
+	^ inverse
+]
+
+{ #category : #accessing }
+MatchingContext >> inverse: aBoolean [
+
+	inverse := aBoolean
 ]
 
 { #category : #accessing }
 MatchingContext >> isMatch [
 
-	^ isMatch
+	^ isMatch xor: [ inverse ]
 ]
 
 { #category : #accessing }

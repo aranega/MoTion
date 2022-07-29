@@ -32,7 +32,8 @@ MatcherResult >> bindingsFor: aString [
 ]
 
 { #category : #initialization }
-MatcherResult >> initialize [ 
+MatcherResult >> initialize [
+
 	matchingContexts := OrderedCollection new.
 ]
 
