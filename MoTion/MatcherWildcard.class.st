@@ -42,13 +42,14 @@ MatcherWildcard >> match: aNewValue withContext: aMatchingContext [
 
 	| aResult |
 	self isAnonymous ifTrue: [ 
-		aMatchingContext isMatch: true.
+		aMatchingContext isMatch: aMatchingContext inverse not.
 		^ { aMatchingContext } ].
 
-	aResult := aMatchingContext bindings at: alias ifAbsentPut: [ 
-		           aMatchingContext isMatch: true.
-		           aNewValue ].
-	aMatchingContext isMatch: aResult = aNewValue.
+	aResult := aMatchingContext bindings
+		           at: alias
+		           ifAbsentPut: [ aNewValue ].
+
+	aMatchingContext isMatch: aNewValue = aResult.
 
 	^ { aMatchingContext }
 ]

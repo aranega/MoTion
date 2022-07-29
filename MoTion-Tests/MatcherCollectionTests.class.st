@@ -183,6 +183,24 @@ MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testNACOnCollectionWithFixedObjects [
+
+	| matcher |
+	matcher := {#'@x'. #'@x'}.
+	self assert: (matcher match: #(2 2)) isMatch.
+	self deny: (matcher match: #(1 2)) isMatch.
+
+
+	matcher := { #'*_'. 5 } asMatcher.
+	self assert: (matcher match: #(1 5)) isMatch.
+	self assert: (matcher match: #(5)) isMatch.
+	self assert: (matcher match: #(1 2 3 5)) isMatch.
+	self deny: (matcher match: #(1 2)) isMatch.
+	self deny: (matcher match: #(2)) isMatch.
+	self deny: (matcher match: #(1 2 3 4)) isMatch.
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testSameWildcards [
 
 	| matcher expression result |

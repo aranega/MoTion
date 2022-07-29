@@ -31,6 +31,57 @@ MatcherNACTest >> testNACCreationOnObjectMatcher [
 ]
 
 { #category : #tests }
+MatcherNACTest >> testNACOnCollection1 [
+
+	| matcher |
+	matcher := {#'@x'. MatcherNAC of: #'@x' asMatcher}.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self deny: (matcher match: #(1 1)) isMatch.
+
+	matcher := { #'*_'. MatcherNAC of: 5 asMatcher }.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self assert: (matcher match: #(2)) isMatch.
+	self assert: (matcher match: #(1 2 3 4)) isMatch.
+	self deny: (matcher match: #(1 5)) isMatch.
+	self deny: (matcher match: #(5)) isMatch.
+	self deny: (matcher match: #(1 2 3 4 5)) isMatch.
+	
+	matcher := { #'*_'. MatcherNAC of: 5 asMatcher. #'*_'. }.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self assert: (matcher match: #(2)) isMatch.
+	self assert: (matcher match: #(1 2 3 4)) isMatch.
+	self assert: (matcher match: #(1 5 3)) isMatch.
+	self assert: (matcher match: #(1 2 3 4 5 5 6)) isMatch.
+	self deny: (matcher match: #(5)) isMatch.
+	self deny: (matcher match: #()) isMatch.
+]
+
+{ #category : #tests }
+MatcherNACTest >> testNACOnCollection2 [
+
+	| matcher |
+	matcher :=  MatcherNAC of: {#'@x'. #'@x'} asMatcher.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self deny: (matcher match: #(1 1)) isMatch.
+"
+	matcher := { #'*_'. MatcherNAC of: 5 asMatcher }.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self assert: (matcher match: #(2)) isMatch.
+	self assert: (matcher match: #(1 2 3 4)) isMatch.
+	self deny: (matcher match: #(1 5)) isMatch.
+	self deny: (matcher match: #(5)) isMatch.
+	self deny: (matcher match: #(1 2 3 4 5)) isMatch.
+	
+	matcher := { #'*_'. MatcherNAC of: 5 asMatcher. #'*_'. }.
+	self assert: (matcher match: #(1 2)) isMatch.
+	self assert: (matcher match: #(2)) isMatch.
+	self assert: (matcher match: #(1 2 3 4)) isMatch.
+	self assert: (matcher match: #(1 5 3)) isMatch.
+	self assert: (matcher match: #(1 2 3 4 5 5 6)) isMatch.
+	self deny: (matcher match: #(5)) isMatch."
+]
+
+{ #category : #tests }
 MatcherNACTest >> testNACOnDeepPattern [
 
 	| matcher a b |

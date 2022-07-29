@@ -38,6 +38,18 @@ MatchingContext >> copy [
 ]
 
 { #category : #accessing }
+MatchingContext >> disableInverse [
+
+	inverse := false
+]
+
+{ #category : #accessing }
+MatchingContext >> enableInverse [
+
+	inverse := true
+]
+
+{ #category : #accessing }
 MatchingContext >> flipIsMatch [
 
 	inverse := inverse not

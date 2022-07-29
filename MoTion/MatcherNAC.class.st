@@ -37,6 +37,10 @@ MatcherNAC >> match: aValue withContext: aContext [
 	
 	aContext flipIsMatch.
 	contexts := innerMatcher match: aValue withContext: aContext.
-	contexts := contexts select:#isMatch.
+	"self halt."
+	contexts := (contexts select: #isMatch) collect: [:ctx | 
+				ctx flipIsMatch.
+				ctx isMatch: ctx isMatch not.
+				ctx].
 	^ contexts
 ]
